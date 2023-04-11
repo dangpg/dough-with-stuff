@@ -1,0 +1,207 @@
+{
+  "basePath": "/api",
+  "consumes": ["application/json"],
+  "info": {
+    "description": "A REST-ful API for pizza ordering.",
+    "title": "Order Pizza API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/auth": {
+      "post": {
+        "description": "Create an access token for user to login",
+        "operationId": "auth.login",
+        "parameters": [
+          {
+            "description": "token to create",
+            "in": "body",
+            "name": "auth",
+            "required": true,
+            "schema": {
+              "properties": {
+                "password": {
+                  "description": "password of user",
+                  "type": "string"
+                },
+                "username": {
+                  "description": "username of user",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created token",
+            "schema": {
+              "type": "object",
+              "required": ["access_token"],
+              "properties": {
+                "access_token": {
+                  "description": "access token",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create an access token",
+        "tags": ["Auth"]
+      }
+    },
+    "/orders": {
+      "get": {
+        "description": "Read the entire set of orders, sorted by timestamp.",
+        "operationId": "orders.read_all",
+        "responses": {
+          "200": {
+            "description": "Successfully read orders set operation",
+            "schema": {
+              "items": {
+                "type": "object",
+                "required": [
+                  "Crust",
+                  "Flavor",
+                  "Order_ID",
+                  "Size",
+                  "Table_No",
+                  "Timestamp"
+                ],
+                "properties": {
+                  "Crust": {
+                    "description": "Crust for the pizza",
+                    "type": "string"
+                  },
+                  "Flavor": {
+                    "description": "Flavor of the pizza",
+                    "type": "string"
+                  },
+                  "Order_ID": {
+                    "description": "Id of the order",
+                    "type": "integer"
+                  },
+                  "Size": {
+                    "description": "Size of the pizza",
+                    "type": "string"
+                  },
+                  "Table_No": {
+                    "description": "Customer's table number",
+                    "type": "integer"
+                  },
+                  "Timestamp": {
+                    "description": "Creation/Update timestamp of the order",
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Return list of Pizza orders",
+        "tags": ["Orders"]
+      },
+      "post": {
+        "description": "Create a new person",
+        "operationId": "orders.create",
+        "parameters": [
+          {
+            "description": "Order to create",
+            "in": "body",
+            "name": "order",
+            "required": true,
+            "schema": {
+              "properties": {
+                "Crust": {
+                  "description": "Crust for the pizza",
+                  "type": "string"
+                },
+                "Flavor": {
+                  "description": "Flavor of the pizza",
+                  "type": "string"
+                },
+                "Size": {
+                  "description": "Size of the pizza",
+                  "type": "string"
+                },
+                "Table_No": {
+                  "description": "Customer's table number",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created order",
+            "schema": {
+              "type": "object",
+              "required": [
+                "Crust",
+                "Flavor",
+                "Order_ID",
+                "Size",
+                "Table_No",
+                "Timestamp"
+              ],
+              "properties": {
+                "Crust": {
+                  "description": "Crust for the pizza",
+                  "type": "string"
+                },
+                "Flavor": {
+                  "description": "Flavor of the pizza",
+                  "type": "string"
+                },
+                "Order_ID": {
+                  "description": "Id of the order",
+                  "type": "integer"
+                },
+                "Size": {
+                  "description": "Size of the pizza",
+                  "type": "string"
+                },
+                "Table_No": {
+                  "description": "Customer's table number",
+                  "type": "integer"
+                },
+                "Timestamp": {
+                  "description": "Creation/Update timestamp of the order",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create an order",
+        "tags": ["Orders"]
+      }
+    },
+    "/orders/{Order_ID}": {
+      "delete": {
+        "description": "Delete an order",
+        "operationId": "orders.delete",
+        "parameters": [
+          {
+            "description": "ID of order to delete",
+            "in": "path",
+            "name": "Order_ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successfully deleted an order" }
+        },
+        "summary": "Delete an order from the orders list",
+        "tags": ["Orders"]
+      }
+    }
+  },
+  "produces": ["application/json"],
+  "swagger": "2.0"
+}

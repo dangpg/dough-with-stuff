@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext .ts,.tsx ./src"
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "gen:client": "openapi -i openapi.json -o src/utils/gen-api-client --name GenApiClient"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.5",
@@ -25,6 +26,7 @@
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
+    "openapi-typescript-codegen": "^0.24.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vite-plugin-eslint": "^1.8.1"
