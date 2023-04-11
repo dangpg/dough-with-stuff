@@ -1,5 +1,7 @@
+import { Text } from "@chakra-ui/react";
+
 function App() {
-  return <div>Dough with stuff</div>;
+  return <Text>Dough with stuff</Text>;
 }
 
 export default App;
