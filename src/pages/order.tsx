@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Assemble from "../components/assemble";
 import LoadingOverlay from "../components/loading-overlay";
 import OrderList from "../components/order-list";
@@ -26,6 +27,7 @@ const createNewOrder = ({ tableNo }: { tableNo: number }): Pizza => ({
 });
 
 const Order = ({ tableNo }: Props) => {
+  const navigate = useNavigate();
   const { isPending, submitPizzas, hasError, isDone } = usePizzaAPI();
 
   const toast = useToast();
@@ -78,7 +80,9 @@ const Order = ({ tableNo }: Props) => {
       duration: 5000,
       isClosable: true,
     });
-  }, [isDone, toast]);
+
+    navigate("/");
+  }, [isDone, toast, navigate]);
 
   useEffect(() => {
     if (!hasError) return;
