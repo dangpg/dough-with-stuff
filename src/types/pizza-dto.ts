@@ -1,8 +1,8 @@
 export interface PizzaDto {
-  crust: string;
-  size: string;
-  tableNo: number;
-  flavor: string;
-  orderId?: number;
-  timestamp?: string;
+  Crust: string;
+  Size: string;
+  Table_No: number;
+  Flavor: string;
+  Order_ID?: number;
+  Timestamp?: string;
 }

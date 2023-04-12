@@ -1,8 +1,11 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { useCallback, useState } from "react";
+import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
+import { useCallback, useEffect, useState } from "react";
 import Assemble from "../components/assemble";
+import LoadingOverlay from "../components/loading-overlay";
 import OrderList from "../components/order-list";
+import { usePizzaAPI } from "../hooks/usePizzaAPI";
 import { Pizza } from "../types/pizza";
+import { transformPizzaToDto } from "../utils";
 
 interface Props {
   tableNo: number;
@@ -23,6 +26,10 @@ const createNewOrder = ({ tableNo }: { tableNo: number }): Pizza => ({
 });
 
 const Order = ({ tableNo }: Props) => {
+  const { isPending, submitPizzas, hasError, isDone } = usePizzaAPI();
+
+  const toast = useToast();
+
   const [orders, setOrders] = useState<Pizza[]>([]);
   const [activeOrderIdx, setActiveOrderIdx] = useState<number | undefined>();
 
@@ -55,32 +62,68 @@ const Order = ({ tableNo }: Props) => {
     [activeOrderIdx]
   );
 
+  const handleSubmitOrder = () => {
+    const ordersToSubmit = orders.map((order) => transformPizzaToDto(order));
+
+    submitPizzas(ordersToSubmit);
+  };
+
+  useEffect(() => {
+    if (!isDone) return;
+
+    toast({
+      title: "Order submitted.",
+      description: "Successfully sent the order to the Pizza API.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+  }, [isDone, toast]);
+
+  useEffect(() => {
+    if (!hasError) return;
+
+    toast({
+      title: "Unexpected error.",
+      description:
+        "An error occurred while sending the order. Please try again.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }, [hasError, toast]);
+
   return (
-    <Box height="100vh">
-      <Flex height="100%">
-        <Flex minW="20%" maxW="20%" direction="column" bg="green">
-          <Box flex={1} bg="blue">
-            <Text>Table No.: {tableNo}</Text>
-            <OrderList
-              orders={orders}
-              activeOrderIdx={activeOrderIdx ?? -1}
-              onNewOrderClick={handleNewOrderClick}
-              onOrderItemClick={handleOrderItemClick}
+    <>
+      {isPending && <LoadingOverlay>Submitting Order</LoadingOverlay>}
+      <Box height="100vh">
+        <Flex height="100%">
+          <Flex minW="20%" maxW="20%" direction="column" bg="green">
+            <Box flex={1} bg="blue">
+              <Text>Table No.: {tableNo}</Text>
+              <OrderList
+                orders={orders}
+                activeOrderIdx={activeOrderIdx ?? -1}
+                onNewOrderClick={handleNewOrderClick}
+                onOrderItemClick={handleOrderItemClick}
+              />
+            </Box>
+            <Button onClick={handleSubmitOrder}>Submit Order</Button>
+          </Flex>
+          <Box flex={1} bg="red">
+            <Assemble
+              key={activeOrderIdx}
+              order={
+                activeOrderIdx !== undefined
+                  ? orders[activeOrderIdx]
+                  : undefined
+              }
+              onUpdateOrder={handleUpdateOrder}
             />
           </Box>
-          <Button>Submit Order</Button>
         </Flex>
-        <Box flex={1} bg="red">
-          <Assemble
-            key={activeOrderIdx}
-            order={
-              activeOrderIdx !== undefined ? orders[activeOrderIdx] : undefined
-            }
-            onUpdateOrder={handleUpdateOrder}
-          />
-        </Box>
-      </Flex>
-    </Box>
+      </Box>
+    </>
   );
 };
 

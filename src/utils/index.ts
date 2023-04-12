@@ -14,10 +14,10 @@ export const transformPizzaToDto = ({
     toppings: { vegetables, meats },
   },
 }: Pizza): PizzaDto => ({
-  tableNo,
-  size: size!,
-  crust: crust!,
-  flavor: [
+  Table_No: tableNo,
+  Size: size!,
+  Crust: crust!,
+  Flavor: [
     sauce,
     cheese,
     vegetables.length > 0 ? vegetables.join(", ") : undefined,

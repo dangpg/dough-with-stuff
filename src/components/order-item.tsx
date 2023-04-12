@@ -9,7 +9,7 @@ interface Props {
 }
 
 const OrderItem = ({ order, isActive, onOrderItemClick }: Props) => {
-  const { size, crust, flavor } = transformPizzaToDto(order);
+  const { Size, Crust, Flavor } = transformPizzaToDto(order);
 
   return (
     <Box
@@ -20,9 +20,9 @@ const OrderItem = ({ order, isActive, onOrderItemClick }: Props) => {
       padding={1}
     >
       <VStack align="flex-start">
-        <Text>Size: {size}</Text>
-        <Text>Crust: {crust}</Text>
-        <Text>Flavor: {flavor}</Text>
+        <Text>Size: {Size}</Text>
+        <Text>Crust: {Crust}</Text>
+        <Text>Flavor: {Flavor}</Text>
       </VStack>
     </Box>
   );
