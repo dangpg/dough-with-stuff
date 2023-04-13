@@ -6,18 +6,26 @@ import {
   Stack,
   Button,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth-context";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const { login, isPending } = useAuth();
+  const { login, isPending, isAuthenticated } = useAuth();
 
   const handleLogin = () => {
     login(username, password);
   };
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    navigate("/");
+  }, [isAuthenticated, navigate]);
 
   return (
     <Box maxW="md" mx="auto" mt={4} p={4} borderWidth={1} rounded="lg">

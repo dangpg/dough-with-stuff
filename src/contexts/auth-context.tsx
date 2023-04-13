@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { PizzaClient } from "../utils/pizza-client";
 
 interface ContextProps {
@@ -37,6 +43,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       setIsPending(false);
     }
   }, []);
+
+  useEffect(() => {
+    PizzaClient.request.config.HEADERS = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+  }, [accessToken]);
 
   return (
     <AuthContext.Provider

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthConsumer, AuthProvider } from "./contexts/auth-context";
+import ProtectedRoute from "./components/protected-route";
+import { AuthProvider } from "./contexts/auth-context";
 import Home from "./pages/home";
 import List from "./pages/list";
 import Login from "./pages/login";
@@ -10,15 +11,34 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
-          <Route path="new" element={<New />} />
-          <Route path="list" element={<List />} />
+
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="new"
+            element={
+              <ProtectedRoute>
+                <New />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="list"
+            element={
+              <ProtectedRoute>
+                <List />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
-      {/* <AuthConsumer>
-        {(context) => (context?.isAuthenticated ? "Logged in" : <Login />)}
-      </AuthConsumer> */}
 
       {/* <Order tableNo={1} /> */}
     </AuthProvider>
