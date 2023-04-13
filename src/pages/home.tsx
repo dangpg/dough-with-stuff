@@ -10,6 +10,9 @@ const Home = () => {
           <Link to="/new">
             <Button>New Order</Button>
           </Link>
+          <Link to="/list">
+            <Button>List Orders</Button>
+          </Link>
         </HStack>
       </VStack>
     </Flex>

@@ -20,6 +20,7 @@ const LoadingOverlay = ({ children }: Props) => {
       alignItems="center"
       direction="column"
       gap={5}
+      style={{ margin: 0 }}
     >
       <Text fontSize="2xl" color="white">
         {children}

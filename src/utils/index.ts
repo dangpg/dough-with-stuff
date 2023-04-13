@@ -35,3 +35,16 @@ export const checkIsOrderIncomplete = ({ size, crust }: Pizza): boolean => {
 
 export const checkIsOrderComplete = (order: Pizza): boolean =>
   !checkIsOrderIncomplete(order);
+
+export const formatTimestamp = (timestamp?: string) => {
+  if (timestamp === undefined) return "";
+
+  const date = new Date(Date.parse(timestamp));
+
+  return new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  }).format(date);
+};

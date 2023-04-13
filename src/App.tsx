@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthConsumer, AuthProvider } from "./contexts/auth-context";
 import Home from "./pages/home";
+import List from "./pages/list";
 import Login from "./pages/login";
 import New from "./pages/new";
 
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="new" element={<New />} />
+          <Route path="list" element={<List />} />
         </Routes>
       </Router>
       {/* <AuthConsumer>
