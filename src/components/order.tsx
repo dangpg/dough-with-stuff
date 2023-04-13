@@ -6,7 +6,7 @@ import LoadingOverlay from "./loading-overlay";
 import OrderList from "./order-list";
 import { usePizzaAPI } from "../hooks/usePizzaAPI";
 import { Pizza } from "../types/pizza";
-import { transformPizzaToDto } from "../utils";
+import { checkIsOrderIncomplete, transformPizzaToDto } from "../utils";
 
 interface Props {
   tableNo: number;
@@ -121,7 +121,10 @@ const Order = ({ tableNo, onCancelOrder }: Props) => {
                 colorScheme="green"
                 flex={1}
                 onClick={handleSubmitOrder}
-                isDisabled={orders.length < 1}
+                isDisabled={
+                  orders.length < 1 ||
+                  orders.some((order) => checkIsOrderIncomplete(order))
+                }
               >
                 Submit
               </Button>

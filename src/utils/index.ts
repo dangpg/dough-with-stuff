@@ -26,3 +26,12 @@ export const transformPizzaToDto = ({
     .filter(Boolean)
     .join(", "),
 });
+
+export const checkIsOrderIncomplete = ({ size, crust }: Pizza): boolean => {
+  if (size === undefined || crust === undefined) return true;
+
+  return false;
+};
+
+export const checkIsOrderComplete = (order: Pizza): boolean =>
+  !checkIsOrderIncomplete(order);

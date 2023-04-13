@@ -1,6 +1,6 @@
-import { Button, Text, VStack } from "@chakra-ui/react";
-import React from "react";
+import { Button, VStack } from "@chakra-ui/react";
 import { Pizza } from "../types/pizza";
+import { checkIsOrderComplete } from "../utils";
 import OrderItem from "./order-item";
 
 interface Props {
@@ -24,6 +24,7 @@ const OrderList = ({
           isActive={activeOrderIdx === i}
           order={order}
           onOrderItemClick={() => onOrderItemClick(i)}
+          isComplete={checkIsOrderComplete(order)}
         />
       ))}
       <Button onClick={onNewOrderClick}>New Order</Button>

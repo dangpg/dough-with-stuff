@@ -22,7 +22,9 @@ const TableSelection = ({
           <GridItem
             key={tableNo}
             bg="cadetblue"
-            outline={tableNo === selectedTableNo ? "black solid 2px" : "none"}
+            border={
+              tableNo === selectedTableNo ? "2px" : "2px solid transparent"
+            }
             onClick={() => onClickTable(tableNo)}
             minHeight={200}
           >
