@@ -50,6 +50,16 @@ const testRead = async () => {
   );
 };
 
+const testDelete = async (orderId: number) => {
+  return new Promise((resolve, reject) =>
+    setTimeout(() => {
+      console.log(`Deleted order ${orderId}`);
+      resolve(undefined);
+      // reject();
+    }, Math.floor(Math.random() * 1000) + 500)
+  );
+};
+
 export const usePizzaAPI = () => {
   const [isPending, setIsPending] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -100,5 +110,31 @@ export const usePizzaAPI = () => {
     }
   }, []);
 
-  return { isPending, hasError, submitPizzas, isDone, getPizzas, pizzas };
+  const deletePizza = useCallback(async (orderId: number) => {
+    setIsDone(false);
+    setIsPending(true);
+    setHasError(false);
+
+    try {
+      // await PizzaClient.orders.ordersDelete(orderId);
+      await testDelete(orderId);
+
+      setIsDone(true);
+    } catch {
+      setHasError(true);
+      setIsDone(true);
+    } finally {
+      setIsPending(false);
+    }
+  }, []);
+
+  return {
+    isPending,
+    hasError,
+    submitPizzas,
+    isDone,
+    getPizzas,
+    pizzas,
+    deletePizza,
+  };
 };

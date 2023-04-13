@@ -11,7 +11,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ListItem from "../components/list-item";
 import LoadingOverlay from "../components/loading-overlay";
@@ -23,6 +23,10 @@ const List = () => {
   const handleRefreshClick = () => {
     getPizzas();
   };
+
+  const handleOrderDeleted = useCallback(() => {
+    getPizzas();
+  }, [getPizzas]);
 
   useEffect(() => {
     if (pizzas) return;
@@ -63,7 +67,7 @@ const List = () => {
           >
             {pizzas.map((pizza) => (
               <GridItem key={pizza.Order_ID}>
-                <ListItem pizza={pizza} />
+                <ListItem pizza={pizza} onOrderDeleted={handleOrderDeleted} />
               </GridItem>
             ))}
           </Grid>
