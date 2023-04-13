@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthConsumer, AuthProvider } from "./contexts/auth-context";
 import Home from "./pages/home";
 import Login from "./pages/login";
-import Order from "./pages/order";
+import New from "./pages/new";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
-          <Route path="new" element={<Order tableNo={1} />} />
+          <Route path="new" element={<New />} />
         </Routes>
       </Router>
       {/* <AuthConsumer>

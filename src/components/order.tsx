@@ -1,15 +1,16 @@
 import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Assemble from "../components/assemble";
-import LoadingOverlay from "../components/loading-overlay";
-import OrderList from "../components/order-list";
+import Assemble from "./assemble";
+import LoadingOverlay from "./loading-overlay";
+import OrderList from "./order-list";
 import { usePizzaAPI } from "../hooks/usePizzaAPI";
 import { Pizza } from "../types/pizza";
 import { transformPizzaToDto } from "../utils";
 
 interface Props {
   tableNo: number;
+  onCancelOrder: () => void;
 }
 
 const createNewOrder = ({ tableNo }: { tableNo: number }): Pizza => ({
@@ -26,14 +27,14 @@ const createNewOrder = ({ tableNo }: { tableNo: number }): Pizza => ({
   },
 });
 
-const Order = ({ tableNo }: Props) => {
+const Order = ({ tableNo, onCancelOrder }: Props) => {
   const navigate = useNavigate();
   const { isPending, submitPizzas, hasError, isDone } = usePizzaAPI();
 
   const toast = useToast();
 
-  const [orders, setOrders] = useState<Pizza[]>([]);
-  const [activeOrderIdx, setActiveOrderIdx] = useState<number | undefined>();
+  const [orders, setOrders] = useState<Pizza[]>([createNewOrder({ tableNo })]);
+  const [activeOrderIdx, setActiveOrderIdx] = useState<number | undefined>(0);
 
   const handleNewOrderClick = useCallback(() => {
     const newOrder = createNewOrder({ tableNo });
@@ -100,7 +101,7 @@ const Order = ({ tableNo }: Props) => {
   return (
     <>
       {isPending && <LoadingOverlay>Submitting Order</LoadingOverlay>}
-      <Box height="100vh">
+      <Box height="100%">
         <Flex height="100%">
           <Flex minW="20%" maxW="20%" direction="column" bg="green">
             <Box flex={1} bg="blue">
@@ -112,7 +113,19 @@ const Order = ({ tableNo }: Props) => {
                 onOrderItemClick={handleOrderItemClick}
               />
             </Box>
-            <Button onClick={handleSubmitOrder}>Submit Order</Button>
+            <Flex justifyContent="stretch">
+              <Button colorScheme="red" flex={1} onClick={onCancelOrder}>
+                Cancel
+              </Button>
+              <Button
+                colorScheme="green"
+                flex={1}
+                onClick={handleSubmitOrder}
+                isDisabled={orders.length < 1}
+              >
+                Submit
+              </Button>
+            </Flex>
           </Flex>
           <Box flex={1} bg="red">
             <Assemble

@@ -1,4 +1,4 @@
-import { Box, Flex, Progress, Spinner, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import React from "react";
 
 interface Props {
@@ -8,7 +8,9 @@ interface Props {
 const LoadingOverlay = ({ children }: Props) => {
   return (
     <Flex
-      position="absolute"
+      position="fixed"
+      top={0}
+      left={0}
       zIndex={500}
       height="100vh"
       width="100vw"
