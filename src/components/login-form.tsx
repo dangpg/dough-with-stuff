@@ -89,8 +89,15 @@ const LoginForm = () => {
           </Link>
           .
         </Text>
-        <Button colorScheme="dark" onClick={handleLogin} isDisabled={isPending}>
-          Login
+        <Button
+          width="100%"
+          colorScheme="dark"
+          onClick={handleLogin}
+          isDisabled={isPending}
+          rounded="3xl"
+          fontWeight="bold"
+        >
+          Log in
         </Button>
       </VStack>
     </Box>
