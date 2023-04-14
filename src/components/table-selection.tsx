@@ -2,14 +2,14 @@ import { Button, Center, Grid, GridItem, Text, VStack } from "@chakra-ui/react";
 
 interface Props {
   selectedTableNo?: number;
-  onClickTable: (tableNo: number) => void;
-  onSubmitTable: () => void;
+  onTableClick: (tableNo: number) => void;
+  onTableSubmit: () => void;
 }
 
 const TableSelection = ({
   selectedTableNo,
-  onClickTable,
-  onSubmitTable,
+  onTableClick,
+  onTableSubmit,
 }: Props) => {
   return (
     <VStack
@@ -34,7 +34,7 @@ const TableSelection = ({
                 ? "2px solid white"
                 : "2px solid transparent"
             }
-            onClick={() => onClickTable(tableNo)}
+            onClick={() => onTableClick(tableNo)}
             minHeight={200}
           >
             <Center height="100%">
@@ -45,7 +45,7 @@ const TableSelection = ({
       </Grid>
       <Button
         isDisabled={selectedTableNo === undefined}
-        onClick={onSubmitTable}
+        onClick={onTableSubmit}
         size="lg"
       >
         {selectedTableNo === undefined

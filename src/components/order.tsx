@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  Flex,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Assemble from "./assemble";
@@ -10,7 +18,7 @@ import { checkIsOrderIncomplete, transformPizzaToDto } from "../utils";
 
 interface Props {
   tableNo: number;
-  onCancelOrder: () => void;
+  onOrderCancel: () => void;
 }
 
 const createNewOrder = ({ tableNo }: { tableNo: number }): Pizza => ({
@@ -27,7 +35,7 @@ const createNewOrder = ({ tableNo }: { tableNo: number }): Pizza => ({
   },
 });
 
-const Order = ({ tableNo, onCancelOrder }: Props) => {
+const Order = ({ tableNo, onOrderCancel }: Props) => {
   const navigate = useNavigate();
   const { isPending, submitPizzas, hasError, isDone } = usePizzaAPI();
 
@@ -48,7 +56,7 @@ const Order = ({ tableNo, onCancelOrder }: Props) => {
     setActiveOrderIdx(idx);
   }, []);
 
-  const handleUpdateOrder = useCallback(
+  const handleOrderUpdate = useCallback(
     (newOrder: Omit<Pizza, "tableNo">) => {
       console.log(newOrder);
 
@@ -65,7 +73,21 @@ const Order = ({ tableNo, onCancelOrder }: Props) => {
     [activeOrderIdx]
   );
 
-  const handleSubmitOrder = () => {
+  const handleOrderDelete = useCallback(() => {
+    if (activeOrderIdx === undefined) return;
+
+    setOrders((prevOrders) =>
+      prevOrders.filter((_, idx) => {
+        return idx !== activeOrderIdx;
+      })
+    );
+
+    setActiveOrderIdx(
+      activeOrderIdx === 0 && orders.length > 1 ? 0 : activeOrderIdx - 1
+    );
+  }, [activeOrderIdx, orders]);
+
+  const handleOrderSubmit = () => {
     const ordersToSubmit = orders.map((order) => transformPizzaToDto(order));
 
     submitPizzas(ordersToSubmit);
@@ -101,48 +123,58 @@ const Order = ({ tableNo, onCancelOrder }: Props) => {
   return (
     <>
       {isPending && <LoadingOverlay>Submitting Order</LoadingOverlay>}
-      <Box height="100%">
-        <Flex height="100%">
-          <Flex minW="20%" maxW="20%" direction="column" bg="green">
-            <Box flex={1} bg="blue">
-              <Text>Table No.: {tableNo}</Text>
+      <Flex height="100%">
+        <Flex minW="20%" maxW="20%" direction="column">
+          <Flex flex={1} height={0} direction="column">
+            <Center padding={3}>
+              <Text fontSize="2xl">Table #{tableNo}</Text>
+            </Center>
+            <Button onClick={handleNewOrderClick}>New Order</Button>
+            <Divider />
+            <Box flex={1} height={0} overflow="auto">
               <OrderList
                 orders={orders}
                 activeOrderIdx={activeOrderIdx ?? -1}
-                onNewOrderClick={handleNewOrderClick}
                 onOrderItemClick={handleOrderItemClick}
               />
             </Box>
-            <Flex justifyContent="stretch">
-              <Button colorScheme="red" flex={1} onClick={onCancelOrder}>
-                Cancel
-              </Button>
-              <Button
-                colorScheme="green"
-                flex={1}
-                onClick={handleSubmitOrder}
-                isDisabled={
-                  orders.length < 1 ||
-                  orders.some((order) => checkIsOrderIncomplete(order))
-                }
-              >
-                Submit
-              </Button>
-            </Flex>
           </Flex>
-          <Box flex={1} bg="red">
-            <Assemble
-              key={activeOrderIdx}
-              order={
-                activeOrderIdx !== undefined
-                  ? orders[activeOrderIdx]
-                  : undefined
+          <Flex justifyContent="stretch">
+            <Button
+              rounded="none"
+              colorScheme="red"
+              size="lg"
+              flex={1}
+              onClick={onOrderCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              rounded="none"
+              size="lg"
+              colorScheme="green"
+              flex={1}
+              onClick={handleOrderSubmit}
+              isDisabled={
+                orders.length < 1 ||
+                orders.some((order) => checkIsOrderIncomplete(order))
               }
-              onUpdateOrder={handleUpdateOrder}
-            />
-          </Box>
+            >
+              Submit
+            </Button>
+          </Flex>
         </Flex>
-      </Box>
+        <Box flex={1} overflow="auto">
+          <Assemble
+            key={activeOrderIdx}
+            order={
+              activeOrderIdx !== undefined ? orders[activeOrderIdx] : undefined
+            }
+            onOrderUpdate={handleOrderUpdate}
+            onOrderDelete={handleOrderDelete}
+          />
+        </Box>
+      </Flex>
     </>
   );
 };

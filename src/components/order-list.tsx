@@ -1,4 +1,4 @@
-import { Button, VStack } from "@chakra-ui/react";
+import { Divider, Flex } from "@chakra-ui/react";
 import { Pizza } from "../types/pizza";
 import { checkIsOrderComplete } from "../utils";
 import OrderItem from "./order-item";
@@ -6,29 +6,26 @@ import OrderItem from "./order-item";
 interface Props {
   orders: Pizza[];
   activeOrderIdx: number;
-  onNewOrderClick: () => void;
   onOrderItemClick: (idx: number) => void;
 }
 
-const OrderList = ({
-  orders,
-  activeOrderIdx,
-  onNewOrderClick,
-  onOrderItemClick,
-}: Props) => {
+const OrderList = ({ orders, activeOrderIdx, onOrderItemClick }: Props) => {
   return (
-    <VStack>
+    <Flex direction="column">
       {orders.map((order, i) => (
-        <OrderItem
-          key={i}
-          isActive={activeOrderIdx === i}
-          order={order}
-          onOrderItemClick={() => onOrderItemClick(i)}
-          isComplete={checkIsOrderComplete(order)}
-        />
+        <>
+          <OrderItem
+            key={i}
+            isActive={activeOrderIdx === i}
+            order={order}
+            orderIdx={i}
+            onOrderItemClick={() => onOrderItemClick(i)}
+            isComplete={checkIsOrderComplete(order)}
+          />
+          <Divider />
+        </>
       ))}
-      <Button onClick={onNewOrderClick}>New Order</Button>
-    </VStack>
+    </Flex>
   );
 };
 

@@ -11,20 +11,20 @@ const New = () => {
   const [tableNo, setTableNo] = useState<number | undefined>();
   const [step, setStep] = useState<Step>("Select table");
 
-  const handleClickTable = (newTableNo: number) => {
+  const handleTableClick = (newTableNo: number) => {
     setTableNo(newTableNo);
   };
 
-  const handleSubmitTable = () => {
+  const handleTableSubmit = () => {
     setStep("Create order");
   };
 
-  const handleCancelOrder = () => {
+  const handleOrderCancel = () => {
     setStep("Select table");
   };
 
   return (
-    <Flex h="100vh" direction="column" gap={0}>
+    <Flex h="100vh" maxH="100vh" direction="column" gap={0}>
       <Flex bg="blue.300" padding={2}>
         <HStack>
           {step === "Select table" ? (
@@ -35,7 +35,7 @@ const New = () => {
             <Icon
               as={ChevronLeftIcon}
               boxSize={6}
-              onClick={handleCancelOrder}
+              onClick={handleOrderCancel}
               cursor="pointer"
             />
           )}
@@ -48,14 +48,14 @@ const New = () => {
           </Heading>
         </HStack>
       </Flex>
-      <Box flex={1}>
+      <Box flex={1} height={0} overflow="auto">
         {step === "Create order" && tableNo !== undefined ? (
-          <Order tableNo={tableNo} onCancelOrder={handleCancelOrder} />
+          <Order tableNo={tableNo} onOrderCancel={handleOrderCancel} />
         ) : (
           <TableSelection
             selectedTableNo={tableNo}
-            onClickTable={handleClickTable}
-            onSubmitTable={handleSubmitTable}
+            onTableClick={handleTableClick}
+            onTableSubmit={handleTableSubmit}
           />
         )}
       </Box>
