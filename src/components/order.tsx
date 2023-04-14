@@ -15,6 +15,7 @@ import OrderList from "./order-list";
 import { usePizzaAPI } from "../hooks/usePizzaAPI";
 import { Pizza } from "../types/pizza";
 import { checkIsOrderIncomplete, transformPizzaToDto } from "../utils";
+import { AddIcon } from "@chakra-ui/icons";
 
 interface Props {
   tableNo: number;
@@ -126,10 +127,21 @@ const Order = ({ tableNo, onOrderCancel }: Props) => {
       <Flex height="100%">
         <Flex minW="20%" maxW="20%" direction="column">
           <Flex flex={1} height={0} direction="column">
-            <Center padding={3}>
+            <Center
+              padding={3}
+              bg="primary.500"
+              color="white"
+              fontWeight="bold"
+            >
               <Text fontSize="2xl">Table #{tableNo}</Text>
             </Center>
-            <Button onClick={handleNewOrderClick}>New Order</Button>
+            <Button
+              leftIcon={<AddIcon />}
+              colorScheme="gray"
+              onClick={handleNewOrderClick}
+            >
+              New Order
+            </Button>
             <Divider />
             <Box flex={1} height={0} overflow="auto">
               <OrderList
@@ -142,7 +154,8 @@ const Order = ({ tableNo, onOrderCancel }: Props) => {
           <Flex justifyContent="stretch">
             <Button
               rounded="none"
-              colorScheme="red"
+              colorScheme="gray"
+              color="black"
               size="lg"
               flex={1}
               onClick={onOrderCancel}
@@ -152,7 +165,7 @@ const Order = ({ tableNo, onOrderCancel }: Props) => {
             <Button
               rounded="none"
               size="lg"
-              colorScheme="green"
+              colorScheme="primary"
               flex={1}
               onClick={handleOrderSubmit}
               isDisabled={
@@ -164,6 +177,7 @@ const Order = ({ tableNo, onOrderCancel }: Props) => {
             </Button>
           </Flex>
         </Flex>
+        <Divider orientation="vertical" />
         <Box flex={1} overflow="auto">
           <Assemble
             key={activeOrderIdx}

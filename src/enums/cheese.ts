@@ -1,5 +1,5 @@
 export const Cheese = {
-  Mozzarella: "Mozzarella",
+  Swiss: "Swiss",
   Ricotta: "Ricotta",
   Feta: "Feta",
 } as const;

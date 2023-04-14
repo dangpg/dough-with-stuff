@@ -16,10 +16,13 @@ import {
   Heading,
   IconButton,
   useDisclosure,
+  Divider,
+  Center,
 } from "@chakra-ui/react";
 import { Pizza } from "../types/pizza";
 import { Cheese, Crust, Sauce, Size, Topping } from "../enums";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { getAsset } from "../utils/get-asset";
 
 interface Props {
   order?: Pizza;
@@ -73,12 +76,14 @@ const Assemble = ({ order, onOrderUpdate, onOrderDelete }: Props) => {
           <Flex direction="column" alignItems={"flex-start"} gap={5}>
             <Flex width="100%" justifyContent="space-between">
               <Box>
-                <Heading size="md">Assemble Pizza</Heading>
+                <Heading size="md">1. Create Dough</Heading>
+                <Text>Select the size and crust type:</Text>
               </Box>
               <IconButton
-                colorScheme="red"
+                colorScheme="dark"
                 aria-label="Delete Order"
-                size="sm"
+                size="lg"
+                variant="solid"
                 icon={<DeleteIcon />}
                 onClick={onOpen}
               />
@@ -89,13 +94,29 @@ const Assemble = ({ order, onOrderUpdate, onOrderDelete }: Props) => {
               </FormControl>
               <Flex gap={4}>
                 {Object.values(Size).map((s, i) => (
-                  <Button
+                  <Flex
                     key={i}
-                    variant={s === size ? "solid" : "outline"}
-                    onClick={() => setSize(s)}
+                    direction="column"
+                    gap={3}
+                    bg={s === size ? "secondary.500" : "gray.100"}
+                    fontWeight={s === size ? "bold" : "normal"}
+                    color={s === size ? "white" : "black"}
+                    rounded="lg"
+                    padding={1}
+                    width="100px"
+                    cursor="pointer"
+                    outline={
+                      s === size ? "2px solid black" : "2px solid transparent"
+                    }
+                    onClick={() => setSize(s === size ? undefined : s)}
                   >
-                    {s}
-                  </Button>
+                    <Center height="100px" padding={1}>
+                      {getAsset({ key: s })}
+                    </Center>
+                    <Center>
+                      <Text>{s}</Text>
+                    </Center>
+                  </Flex>
                 ))}
               </Flex>
             </Box>
@@ -105,45 +126,98 @@ const Assemble = ({ order, onOrderUpdate, onOrderDelete }: Props) => {
               </FormControl>
               <Flex gap={4}>
                 {Object.values(Crust).map((c, i) => (
-                  <Button
+                  <Flex
                     key={i}
-                    variant={c === crust ? "solid" : "outline"}
-                    onClick={() => setCrust(c)}
+                    direction="column"
+                    gap={3}
+                    bg={c === crust ? "secondary.500" : "gray.100"}
+                    fontWeight={c === crust ? "bold" : "normal"}
+                    color={c === crust ? "white" : "black"}
+                    rounded="lg"
+                    padding={1}
+                    width="100px"
+                    cursor="pointer"
+                    outline={
+                      c === crust ? "2px solid black" : "2px solid transparent"
+                    }
+                    onClick={() => setCrust(c === crust ? undefined : c)}
                   >
-                    {c}
-                  </Button>
+                    <Center height="100px" padding={1}>
+                      {getAsset({ key: c })}
+                    </Center>
+                    <Center>
+                      <Text>{c}</Text>
+                    </Center>
+                  </Flex>
                 ))}
               </Flex>
             </Box>
+            <Divider />
+            <Box>
+              <Heading size="md">2. Add Flavors</Heading>
+              <Text>Select at least one topping:</Text>
+            </Box>
             <Box>
               <FormControl>
-                <FormLabel fontWeight="bold">Sauce</FormLabel>
+                <FormLabel fontWeight="bold">Sauce (max. 1)</FormLabel>
               </FormControl>
               <Flex gap={4}>
                 {Object.values(Sauce).map((s, i) => (
-                  <Button
+                  <Flex
                     key={i}
-                    variant={s === sauce ? "solid" : "outline"}
-                    onClick={() => setSauce(s)}
+                    direction="column"
+                    gap={3}
+                    bg={s === sauce ? "secondary.500" : "gray.100"}
+                    fontWeight={s === sauce ? "bold" : "normal"}
+                    color={s === sauce ? "white" : "black"}
+                    rounded="lg"
+                    padding={1}
+                    width="100px"
+                    cursor="pointer"
+                    outline={
+                      s === sauce ? "2px solid black" : "2px solid transparent"
+                    }
+                    onClick={() => setSauce(s === sauce ? undefined : s)}
                   >
-                    {s}
-                  </Button>
+                    <Center height="100px" padding={1}>
+                      {getAsset({ key: s })}
+                    </Center>
+                    <Center>
+                      <Text>{s}</Text>
+                    </Center>
+                  </Flex>
                 ))}
               </Flex>
             </Box>
             <Box>
               <FormControl>
-                <FormLabel fontWeight="bold">Cheese</FormLabel>
+                <FormLabel fontWeight="bold">Cheese (max. 1)</FormLabel>
               </FormControl>
               <Flex gap={4}>
                 {Object.values(Cheese).map((c, i) => (
-                  <Button
+                  <Flex
                     key={i}
-                    variant={c === cheese ? "solid" : "outline"}
-                    onClick={() => setCheese(c)}
+                    direction="column"
+                    gap={3}
+                    bg={c === cheese ? "secondary.500" : "gray.100"}
+                    fontWeight={c === cheese ? "bold" : "normal"}
+                    color={c === cheese ? "white" : "black"}
+                    rounded="lg"
+                    padding={1}
+                    width="100px"
+                    cursor="pointer"
+                    outline={
+                      c === cheese ? "2px solid black" : "2px solid transparent"
+                    }
+                    onClick={() => setCheese(c === cheese ? undefined : c)}
                   >
-                    {c}
-                  </Button>
+                    <Center height="100px" padding={1}>
+                      {getAsset({ key: c })}
+                    </Center>
+                    <Center>
+                      <Text>{c}</Text>
+                    </Center>
+                  </Flex>
                 ))}
               </Flex>
             </Box>
@@ -153,9 +227,22 @@ const Assemble = ({ order, onOrderUpdate, onOrderDelete }: Props) => {
               </FormControl>
               <Flex gap={4}>
                 {Object.values(Topping.Vegetables).map((v, i) => (
-                  <Button
+                  <Flex
                     key={i}
-                    variant={vegetables.includes(v) ? "solid" : "outline"}
+                    direction="column"
+                    gap={3}
+                    bg={vegetables.includes(v) ? "secondary.500" : "gray.100"}
+                    fontWeight={vegetables.includes(v) ? "bold" : "normal"}
+                    color={vegetables.includes(v) ? "white" : "black"}
+                    rounded="lg"
+                    padding={1}
+                    width="100px"
+                    cursor="pointer"
+                    outline={
+                      vegetables.includes(v)
+                        ? "2px solid black"
+                        : "2px solid transparent"
+                    }
                     onClick={() =>
                       setVegetables((prevVeg) =>
                         prevVeg.includes(v)
@@ -164,8 +251,13 @@ const Assemble = ({ order, onOrderUpdate, onOrderDelete }: Props) => {
                       )
                     }
                   >
-                    {v}
-                  </Button>
+                    <Center height="100px" padding={1}>
+                      {getAsset({ key: v })}
+                    </Center>
+                    <Center>
+                      <Text>{v}</Text>
+                    </Center>
+                  </Flex>
                 ))}
               </Flex>
             </Box>
@@ -175,19 +267,37 @@ const Assemble = ({ order, onOrderUpdate, onOrderDelete }: Props) => {
               </FormControl>
               <Flex gap={4}>
                 {Object.values(Topping.Meats).map((m, i) => (
-                  <Button
+                  <Flex
                     key={i}
-                    variant={meats.includes(m) ? "solid" : "outline"}
+                    direction="column"
+                    gap={3}
+                    bg={meats.includes(m) ? "secondary.500" : "gray.100"}
+                    fontWeight={meats.includes(m) ? "bold" : "normal"}
+                    color={meats.includes(m) ? "white" : "black"}
+                    rounded="lg"
+                    padding={1}
+                    width="100px"
+                    cursor="pointer"
+                    outline={
+                      meats.includes(m)
+                        ? "2px solid black"
+                        : "2px solid transparent"
+                    }
                     onClick={() =>
-                      setMeats((prevMeats) =>
-                        prevMeats.includes(m)
-                          ? prevMeats.filter((meat) => meat !== m)
-                          : [...prevMeats, m]
+                      setMeats((prevMeat) =>
+                        prevMeat.includes(m)
+                          ? prevMeat.filter((meat) => meat !== m)
+                          : [...prevMeat, m]
                       )
                     }
                   >
-                    {m}
-                  </Button>
+                    <Center height="100px" padding={1}>
+                      {getAsset({ key: m })}
+                    </Center>
+                    <Center>
+                      <Text>{m}</Text>
+                    </Center>
+                  </Flex>
                 ))}
               </Flex>
             </Box>

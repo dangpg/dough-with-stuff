@@ -1,4 +1,4 @@
 export const Topping = {
-  Vegetables: ["Spinach", "Tomatoes", "Mushrooms", "Onions"],
-  Meats: ["Bacon", "Ham", "Salami", "Meatballs"],
+  Vegetables: ["Pepper", "Tomato", "Mushroom", "Garlic"],
+  Meats: ["Bacon", "Ham", "Sausage", "Tuna"],
 } as const;
