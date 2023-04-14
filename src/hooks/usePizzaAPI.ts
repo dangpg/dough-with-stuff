@@ -72,11 +72,14 @@ export const usePizzaAPI = () => {
     setHasError(false);
 
     try {
-      // const requests = pizzas.map((pizza) =>
-      //   PizzaClient.orders.ordersCreate(pizza)
-      // );
-
-      const requests = pizzas.map((pizza) => testOrder(pizza));
+      let requests;
+      if (import.meta.env.VITE_USE_DUMMY_API) {
+        requests = pizzas.map((pizza) => testOrder(pizza));
+      } else {
+        requests = pizzas.map((pizza) =>
+          PizzaClient.orders.ordersCreate(pizza)
+        );
+      }
 
       await Promise.all(requests);
 
@@ -96,8 +99,12 @@ export const usePizzaAPI = () => {
     setPizzas(undefined);
 
     try {
-      // const pizzas = await PizzaClient.orders.ordersReadAll();
-      const pizzas = await testRead();
+      let pizzas;
+      if (import.meta.env.VITE_USE_DUMMY_API) {
+        pizzas = await testRead();
+      } else {
+        pizzas = await PizzaClient.orders.ordersReadAll();
+      }
 
       setIsDone(true);
       setPizzas(pizzas);
@@ -116,8 +123,11 @@ export const usePizzaAPI = () => {
     setHasError(false);
 
     try {
-      // await PizzaClient.orders.ordersDelete(orderId);
-      await testDelete(orderId);
+      if (import.meta.env.VITE_USE_DUMMY_API) {
+        await testDelete(orderId);
+      } else {
+        await PizzaClient.orders.ordersDelete(orderId);
+      }
 
       setIsDone(true);
     } catch {
