@@ -73,7 +73,7 @@ const LoginForm = () => {
           </InputGroup>
         </FormControl>
         <Text fontSize="2xs" color="gray.500" textAlign="center">
-          By loggin in, I agree to the D-W-S{" "}
+          By logging in, I agree to the D-W-S{" "}
           <Link
             href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             color="secondary.600"
