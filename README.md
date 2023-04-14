@@ -1,6 +1,6 @@
-# dough-with-pizza
+# dough-with-stuff
 
-> React application that allows users to configure and place an order for `dough-with-stuff` on top.
+> React application that allows users to configure and place an order for `dough-with-stuff`.
 
 ## Tech Stack
 
@@ -11,6 +11,7 @@
 - [OpenAPI Typescript Codegen](https://github.com/ferdikoomen/openapi-typescript-codegen) as TypeScript-based client generator
 - [Cypress](https://www.cypress.io/) as E2E test tool
 - [Vercel](https://vercel.com/) as hosting platform
+- [pnpm](https://pnpm.io/) as package manager
 
 ## Usage
 
