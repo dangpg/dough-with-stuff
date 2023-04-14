@@ -21,6 +21,13 @@
 pnpm install
 ```
 
+- Manually set environment variables or create .env file in root folder
+
+```bash
+VITE_API_URL=<INSERT-URL-HERE>    // base API url
+VITE_USE_DUMMY_API=               // set to non-empty string in case you want to mock API
+```
+
 - Run development server on port `1337`
 
 ```bash
