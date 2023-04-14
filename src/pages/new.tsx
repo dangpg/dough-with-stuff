@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, HStack, VStack, Icon } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Icon } from "@chakra-ui/react";
 import { useState } from "react";
 import TableSelection from "../components/table-selection";
 import Order from "../components/order";
@@ -25,7 +25,7 @@ const New = () => {
 
   return (
     <Flex h="100vh" maxH="100vh" direction="column" gap={0}>
-      <Flex bg="blue.300" padding={2}>
+      <Flex bg="primary.400" padding={2} color="white">
         <HStack>
           {step === "Select table" ? (
             <Link to="/">
