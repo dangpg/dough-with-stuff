@@ -207,11 +207,11 @@ const Assemble = ({ order, onOrderUpdate, onOrderDelete }: Props) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="gray" variant="ghost" mr={3} onClick={onClose}>
               Close
             </Button>
             <Button
-              colorScheme="red"
+              colorScheme="primary"
               onClick={() => {
                 onClose();
                 handleDeleteClick();

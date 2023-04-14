@@ -74,7 +74,7 @@ const ListItem = ({ pizza, onOrderDeleted }: Props) => {
     <>
       {isPending && <LoadingOverlay>Deleting Order</LoadingOverlay>}
       <Card>
-        <CardHeader bg="green.300">
+        <CardHeader bg="secondary.500" color="white">
           <VStack alignItems="stretch">
             <Flex alignItems="center">
               <Text flex={1}>{formatTimestamp(Timestamp)}</Text>
@@ -85,9 +85,10 @@ const ListItem = ({ pizza, onOrderDeleted }: Props) => {
               >{`#${Order_ID}`}</Text>
               <Flex flex={1} justifyContent="flex-end">
                 <IconButton
-                  colorScheme="red"
+                  colorScheme="white"
                   aria-label="Delete Order"
                   size="sm"
+                  variant="outline"
                   icon={<DeleteIcon />}
                   onClick={onOpen}
                 />
@@ -127,11 +128,11 @@ const ListItem = ({ pizza, onOrderDeleted }: Props) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="gray" variant="ghost" mr={3} onClick={onClose}>
               Close
             </Button>
             <Button
-              colorScheme="red"
+              colorScheme="primary"
               onClick={() => {
                 onClose();
                 handleDeleteClick();

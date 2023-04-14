@@ -19,10 +19,11 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Spacer,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ListItem from "../components/list-item";
 import LoadingOverlay from "../components/loading-overlay";
@@ -33,6 +34,8 @@ const List = () => {
   const { getPizzas, pizzas, isPending, hasError, isDone } = usePizzaAPI();
   const [filteredPizzas, setFilteredPizzas] = useState<PizzaDto[]>();
   const [query, setQuery] = useState("");
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleRefreshClick = () => {
     getPizzas();
@@ -48,6 +51,10 @@ const List = () => {
 
   const handleClearQueryClick = () => {
     setQuery("");
+
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
 
   const debouncedChangeHandler = useCallback(
@@ -80,29 +87,34 @@ const List = () => {
 
   return (
     <VStack alignItems="stretch">
-      <Flex justifyContent="space-between" bg="blue.300" padding={2} gap={5}>
+      <Flex justifyContent="space-between" bg="primary.500" padding={2} gap={5}>
         <HStack>
           <Link to="/">
-            <ChevronLeftIcon boxSize={6} aria-label="Back to Home" />
+            <ChevronLeftIcon
+              boxSize={6}
+              aria-label="Back to Home"
+              color="white"
+            />
           </Link>
-          <Heading whiteSpace="nowrap" size="lg">
+          <Heading whiteSpace="nowrap" size="lg" color="white">
             List Orders
           </Heading>
         </HStack>
-        <InputGroup>
+        <InputGroup maxW="md">
           <InputLeftElement pointerEvents="none">
             <SearchIcon />
           </InputLeftElement>
           <Input
-            bg="white"
+            ref={inputRef}
             variant="filled"
-            placeholder="Search order"
+            placeholder="Search"
             onChange={debouncedChangeHandler}
+            _focusVisible={{ bg: "white" }}
           />
 
           <InputRightElement>
             <IconButton
-              isDisabled={query.length === 0}
+              style={{ visibility: query.length === 0 ? "hidden" : "visible" }}
               onClick={handleClearQueryClick}
               aria-label="Clear Search Filter"
               icon={<CloseIcon />}
@@ -110,6 +122,7 @@ const List = () => {
             />
           </InputRightElement>
         </InputGroup>
+        <Spacer />
         <Button leftIcon={<RepeatIcon />} onClick={handleRefreshClick}>
           Refresh
         </Button>
