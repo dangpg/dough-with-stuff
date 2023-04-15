@@ -5,12 +5,13 @@ import {
   useEffect,
   useState,
 } from "react";
+import { ApiError } from "../utils/gen-api-client";
 import { PizzaClient } from "../utils/pizza-client";
 
 interface ContextProps {
   accessToken: string | null;
   isAuthenticated: boolean;
-  hasError: boolean;
+  errorCode?: number;
   isPending: boolean;
   login: (username: string, password: string) => void;
 }
@@ -25,12 +26,12 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   // TODO: check session storage
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [hasError, setHasError] = useState(false);
+  const [errorCode, setErrorCode] = useState<number | undefined>();
   const [isPending, setIsPending] = useState(false);
 
   const login = useCallback(async (username: string, password: string) => {
     try {
-      setHasError(false);
+      setErrorCode(undefined);
       setIsPending(true);
 
       const response = await PizzaClient.auth.authLogin({ password, username });
@@ -38,7 +39,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       setAccessToken(response.access_token);
     } catch (err) {
       console.error(`Authentication error: ${err}`);
-      setHasError(true);
+      setErrorCode((err as ApiError).status);
     } finally {
       setIsPending(false);
     }
@@ -55,7 +56,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       value={{
         accessToken,
         isAuthenticated: accessToken !== null,
-        hasError,
+        errorCode,
         isPending,
         login,
       }}

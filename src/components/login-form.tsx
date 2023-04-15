@@ -11,7 +11,7 @@ import {
   Text,
   Link,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth-context";
 
@@ -24,9 +24,10 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const { login, isPending, isAuthenticated } = useAuth();
+  const { login, isPending, isAuthenticated, errorCode } = useAuth();
 
-  const handleLogin = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
     login(username, password);
   };
 
@@ -42,63 +43,72 @@ const LoginForm = () => {
         <Heading fontSize="2xl" fontWeight="bold">
           Log in
         </Heading>
-        <FormControl id="username" isRequired>
-          <FormLabel>Username</FormLabel>
-          <Input
-            type="text"
-            value={username}
-            variant="flushed"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </FormControl>
-        <FormControl id="password" isRequired>
-          <FormLabel>Password</FormLabel>
-          <InputGroup>
-            <Input
-              type={isPasswordVisible ? "text" : "password"}
-              value={password}
-              variant="flushed"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <InputRightElement>
-              <Button
-                variant="link"
-                onClick={handlePasswordToggle}
+        <form onSubmit={handleSubmit}>
+          <VStack gap={5}>
+            <FormControl id="username" isRequired isInvalid={errorCode === 401}>
+              <FormLabel>Username</FormLabel>
+              <Input
+                type="text"
+                value={username}
+                variant="flushed"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="password" isRequired isInvalid={errorCode === 401}>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input
+                  type={isPasswordVisible ? "text" : "password"}
+                  value={password}
+                  variant="flushed"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <InputRightElement>
+                  <Button
+                    variant="link"
+                    onClick={handlePasswordToggle}
+                    color="secondary.600"
+                    fontWeight="normal"
+                  >
+                    {isPasswordVisible ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            {errorCode !== undefined && (
+              <Text color="red.500" fontWeight="bold" fontSize="sm">
+                Wrong username or password.
+              </Text>
+            )}
+            <Text fontSize="2xs" color="gray.500" textAlign="center">
+              By logging in, I agree to the D-W-S{" "}
+              <Link
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                 color="secondary.600"
-                fontWeight="normal"
               >
-                {isPasswordVisible ? "Hide" : "Show"}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </FormControl>
-        <Text fontSize="2xs" color="gray.500" textAlign="center">
-          By logging in, I agree to the D-W-S{" "}
-          <Link
-            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            color="secondary.600"
-          >
-            Terms & Conditions
-          </Link>{" "}
-          and acknowledge the{" "}
-          <Link
-            href="https://www.youtube.com/watch?v=y6120QOlsfU"
-            color="secondary.600"
-          >
-            Privacy Policy
-          </Link>
-          .
-        </Text>
-        <Button
-          width="100%"
-          colorScheme="dark"
-          onClick={handleLogin}
-          isDisabled={isPending}
-          rounded="3xl"
-          fontWeight="bold"
-        >
-          Log in
-        </Button>
+                Terms & Conditions
+              </Link>{" "}
+              and acknowledge the{" "}
+              <Link
+                href="https://www.youtube.com/watch?v=y6120QOlsfU"
+                color="secondary.600"
+              >
+                Privacy Policy
+              </Link>
+              .
+            </Text>
+            <Button
+              width="100%"
+              colorScheme="dark"
+              isDisabled={isPending}
+              rounded="3xl"
+              fontWeight="bold"
+              type="submit"
+            >
+              Log in
+            </Button>
+          </VStack>
+        </form>
       </VStack>
     </Box>
   );
