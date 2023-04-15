@@ -4,6 +4,7 @@ import TableSelection from "../components/table-selection";
 import Order from "../components/order";
 import { Link } from "react-router-dom";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { ReactComponent as DWS } from "../assets/dws.svg";
 
 type Step = "Select table" | "Create order";
 
@@ -25,7 +26,7 @@ const New = () => {
 
   return (
     <Flex h="100vh" maxH="100vh" direction="column" gap={0}>
-      <Flex bg="primary.400" padding={2} color="white">
+      <Flex bg="primary.500" padding={2} color="white">
         <HStack>
           {step === "Select table" ? (
             <Link to="/">
@@ -39,6 +40,7 @@ const New = () => {
               cursor="pointer"
             />
           )}
+          <DWS height={40} />
           <Heading whiteSpace="nowrap" size="lg">
             {`${
               step === "Select table"

@@ -29,6 +29,7 @@ import ListItem from "../components/list-item";
 import LoadingOverlay from "../components/loading-overlay";
 import { usePizzaAPI } from "../hooks/usePizzaAPI";
 import { PizzaDto } from "../types/pizza-dto";
+import { ReactComponent as DWS } from "../assets/dws.svg";
 
 const List = () => {
   const { getPizzas, pizzas, isPending, hasError, isDone } = usePizzaAPI();
@@ -57,6 +58,7 @@ const List = () => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeHandler = useCallback(
     debounce(
       (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -96,6 +98,7 @@ const List = () => {
               color="white"
             />
           </Link>
+          <DWS height={40} />
           <Heading whiteSpace="nowrap" size="lg" color="white">
             List Orders
           </Heading>

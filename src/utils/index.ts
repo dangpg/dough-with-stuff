@@ -1,9 +1,6 @@
 import { Pizza } from "../types/pizza";
 import { PizzaDto } from "../types/pizza-dto";
 
-type RequireKeys<T extends object, K extends keyof T> = Required<Pick<T, K>> &
-  Omit<T, K>;
-
 export const transformPizzaToDto = ({
   tableNo,
   size,
@@ -15,7 +12,9 @@ export const transformPizzaToDto = ({
   },
 }: Pizza): PizzaDto => ({
   Table_No: tableNo,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   Size: size!,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   Crust: crust!,
   Flavor: [
     sauce,

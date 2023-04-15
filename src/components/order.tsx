@@ -129,7 +129,7 @@ const Order = ({ tableNo, onOrderCancel }: Props) => {
           <Flex flex={1} height={0} direction="column">
             <Center
               padding={3}
-              bg="primary.500"
+              bg="primary.600"
               color="white"
               fontWeight="bold"
             >

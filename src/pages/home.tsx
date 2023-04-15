@@ -1,12 +1,13 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { ReactComponent as DWS } from "../assets/dws.svg";
 
 const Home = () => {
   return (
     <Flex minH="100vh" alignItems="stretch" direction="column">
       <Flex bg="primary.500" h="60px" padding={2} alignItems="center">
-        D-W-S
+        <DWS height={40} />
       </Flex>
       <Flex bg="primary.600" h="30px" padding={2} alignItems="center"></Flex>
       <VStack alignItems="stretch" marginY={5} marginX={20} gap={5}>
