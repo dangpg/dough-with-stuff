@@ -1,5 +1,7 @@
 # dough-with-stuff
 
+![DWS Logo](screenshot.png)
+
 > React application that allows users to configure and place an order for `dough-with-stuff`.
 
 ## Tech Stack

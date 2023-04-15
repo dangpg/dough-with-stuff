@@ -85,6 +85,7 @@ const LoginForm = () => {
               <Link
                 href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                 color="secondary.600"
+                isExternal
               >
                 Terms & Conditions
               </Link>{" "}
@@ -92,6 +93,7 @@ const LoginForm = () => {
               <Link
                 href="https://www.youtube.com/watch?v=y6120QOlsfU"
                 color="secondary.600"
+                isExternal
               >
                 Privacy Policy
               </Link>
