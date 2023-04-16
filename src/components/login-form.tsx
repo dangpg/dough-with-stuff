@@ -10,6 +10,7 @@ import {
   InputRightElement,
   Text,
   Link,
+  Spinner,
 } from "@chakra-ui/react";
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -110,7 +111,7 @@ const LoginForm = () => {
               fontWeight="bold"
               type="submit"
             >
-              Log in
+              {isPending ? <Spinner /> : "Log in"}
             </Button>
           </VStack>
         </form>
