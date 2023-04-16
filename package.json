@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.tsx ./src",
     "gen:client": "openapi -i openapi.json -o src/utils/gen-api-client --name GenApiClient",
-    "serve": "serve -s dist -p 1337"
+    "serve": "serve -s dist -p 1337",
+    "e2e": "cypress open -C cypress/cypress.config.ts",
+    "e2e:headless": "cypress run -C cypress/cypress.config.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.18",
@@ -31,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "@vitejs/plugin-react": "^3.1.0",
+    "cypress": "^12.9.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",

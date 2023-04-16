@@ -98,7 +98,7 @@ const Order = ({ tableNo, onOrderCancel }: Props) => {
     if (!isDone) return;
 
     toast({
-      title: "Order submitted.",
+      title: "Order submitted",
       description: "Successfully sent the order to the Pizza API.",
       status: "success",
       duration: 5000,
@@ -112,7 +112,7 @@ const Order = ({ tableNo, onOrderCancel }: Props) => {
     if (!hasError) return;
 
     toast({
-      title: "Unexpected error.",
+      title: "Unexpected error",
       description:
         "An error occurred while sending the order. Please try again.",
       status: "error",

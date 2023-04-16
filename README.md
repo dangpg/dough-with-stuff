@@ -23,7 +23,7 @@
 pnpm install
 ```
 
-- Manually set environment variables or create .env file in root folder
+- Manually set environment variables or create `.env` file in root folder
 
 ```bash
 VITE_API_URL=<INSERT-URL-HERE>    // base API url
@@ -63,6 +63,33 @@ docker run -it --rm -p 1337:1337 dangpg/dough-with-stuff
 ```
 
 3. Production build is accessible at `http://localhost:1337`
+
+## Cypress E2E tests
+
+1. Make sure application is running on localhost:1337
+
+```bash
+pnpm dev
+```
+
+2. Create `cypress.env.json` in root folder
+
+```json
+{
+  "USERNAME": "<insert-username-here>",
+  "PASSWORD": "<insert-password-here>"
+}
+```
+
+3. Either run E2e in UI or headless mode
+
+```bash
+pnpm e2e
+
+OR
+
+pnpm e2e:headless
+```
 
 ## Any Decision Records
 

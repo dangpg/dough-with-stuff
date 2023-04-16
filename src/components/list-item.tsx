@@ -49,7 +49,7 @@ const ListItem = ({ pizza, onOrderDeleted }: Props) => {
 
     if (hasError) {
       toast({
-        title: "Unexpected error.",
+        title: "Unexpected error",
         description: `An error occurred while deleting the order #${Order_ID}. Please try again.`,
         status: "error",
         duration: 5000,
@@ -60,7 +60,7 @@ const ListItem = ({ pizza, onOrderDeleted }: Props) => {
     }
 
     toast({
-      title: "Order deleted.",
+      title: "Order deleted",
       description: `Successfully deleted order #${Order_ID}.`,
       status: "success",
       duration: 5000,
@@ -73,7 +73,7 @@ const ListItem = ({ pizza, onOrderDeleted }: Props) => {
   return (
     <>
       {isPending && <LoadingOverlay>Deleting Order</LoadingOverlay>}
-      <Card>
+      <Card data-testid="list-item">
         <CardHeader bg="secondary.500" color="white">
           <VStack alignItems="stretch">
             <Flex alignItems="center">
@@ -82,6 +82,7 @@ const ListItem = ({ pizza, onOrderDeleted }: Props) => {
                 flex={1}
                 fontWeight="bold"
                 textAlign="center"
+                data-testid="list-item-orderId"
               >{`#${Order_ID}`}</Text>
               <Flex flex={1} justifyContent="flex-end">
                 <IconButton
