@@ -11,7 +11,8 @@
 - [Vite](https://vitejs.dev/) as build tool
 - [Chakra UI](https://chakra-ui.com/) as component library
 - [OpenAPI Typescript Codegen](https://github.com/ferdikoomen/openapi-typescript-codegen) as TypeScript-based client generator
-- [Cypress](https://www.cypress.io/) as E2E test tool
+- [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/) as integration test framework
+- [Cypress](https://www.cypress.io/) as E2E test framework
 - [Vercel](https://vercel.com/) as hosting platform
 - [pnpm](https://pnpm.io/) as package manager
 
@@ -64,6 +65,12 @@ docker run -it --rm -p 1337:1337 dangpg/dough-with-stuff
 
 3. Production build is accessible at `http://localhost:1337`
 
+## Vitest + React Testing Library tests
+
+```bash
+pnpm test
+```
+
 ## Cypress E2E tests
 
 1. Make sure application is running on localhost:1337
@@ -89,66 +96,4 @@ pnpm e2e
 OR
 
 pnpm e2e:headless
-```
-
-## Any Decision Records
-
-```
-# Vite as React Framework
-
-## Context
-
-## Options
-
-## Outcome
-```
-
-```
-# TypeScript
-
-## Context
-
-## Options
-
-## Outcome
-```
-
-```
-# Chakra Ui as component library
-
-## Context
-
-## Options
-
-## Outcome
-```
-
-```
-# Eslint and Prettier
-
-## Context
-
-## Options
-
-## Outcome
-```
-
-```
-# openapi-typescript-codegen
-
-## Context
-
-## Options
-
-## Outcome
-```
-
-```
-# Global PizzaContext as state management solution
-
-## Context
-
-## Options
-
-## Outcome
 ```

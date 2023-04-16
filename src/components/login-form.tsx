@@ -49,6 +49,7 @@ const LoginForm = () => {
               <FormLabel>Username</FormLabel>
               <Input
                 type="text"
+                data-testid="input-username"
                 value={username}
                 variant="flushed"
                 onChange={(e) => setUsername(e.target.value)}
@@ -59,6 +60,7 @@ const LoginForm = () => {
               <InputGroup>
                 <Input
                   type={isPasswordVisible ? "text" : "password"}
+                  data-testid="input-password"
                   value={password}
                   variant="flushed"
                   onChange={(e) => setPassword(e.target.value)}
@@ -66,6 +68,7 @@ const LoginForm = () => {
                 <InputRightElement>
                   <Button
                     variant="link"
+                    data-testid="button-toggle-password-visibility"
                     onClick={handlePasswordToggle}
                     color="secondary.600"
                     fontWeight="normal"
