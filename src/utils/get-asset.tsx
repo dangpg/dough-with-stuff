@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import { ReactComponent as Circle } from "../assets/circle.svg";
 import { ReactComponent as Bacon } from "../assets/bacon.svg";
-import { ReactComponent as Swiss } from "../assets/swiss.svg";
+import { ReactComponent as Cheddar } from "../assets/cheddar.svg";
 import { ReactComponent as Ricotta } from "../assets/ricotta.svg";
-import { ReactComponent as Feta } from "../assets/feta.svg";
+import { ReactComponent as Mozzarella } from "../assets/mozzarella.svg";
 import { ReactComponent as Tomato } from "../assets/tomato.svg";
 import { ReactComponent as Mushroom } from "../assets/mushroom.svg";
 import { ReactComponent as Garlic } from "../assets/garlic.svg";
@@ -40,12 +40,12 @@ export const getAsset = ({ key }: Props): JSX.Element => {
     case Sauce.White:
       return <Circle strokeWidth={0} fill="white" />;
 
-    case Cheese.Swiss:
-      return <Swiss />;
+    case Cheese.Cheddar:
+      return <Cheddar />;
     case Cheese.Ricotta:
       return <Ricotta />;
-    case Cheese.Feta:
-      return <Feta />;
+    case Cheese.Mozzarella:
+      return <Mozzarella />;
 
     case "Pepper":
       return <Pepper />;
