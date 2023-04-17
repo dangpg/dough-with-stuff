@@ -25,7 +25,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const { login, isPending, isAuthenticated, errorCode } = useAuth();
+  const { login, isPending, isAuthenticated, hasError, errorCode } = useAuth();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
@@ -79,9 +79,16 @@ const LoginForm = () => {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
-            {errorCode !== undefined && (
-              <Text color="red.500" fontWeight="bold" fontSize="sm">
-                Wrong username or password.
+            {hasError && (
+              <Text
+                color="red.500"
+                fontWeight="bold"
+                fontSize="sm"
+                textAlign="center"
+              >
+                {errorCode === 401
+                  ? "Wrong username or password."
+                  : "An unexpected error occurred."}
               </Text>
             )}
             <Text fontSize="2xs" color="gray.500" textAlign="center">
@@ -106,10 +113,11 @@ const LoginForm = () => {
             <Button
               width="100%"
               colorScheme="dark"
-              isDisabled={isPending}
+              isDisabled={isPending || username === "" || password === ""}
               rounded="3xl"
               fontWeight="bold"
               type="submit"
+              data-testid="button-login"
             >
               {isPending ? <Spinner /> : "Log in"}
             </Button>
