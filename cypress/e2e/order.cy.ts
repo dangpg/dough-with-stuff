@@ -60,3 +60,5 @@ describe("Order page", () => {
     cy.contains(`# Orders shown: 0 out of`).should("be.visible");
   });
 });
+
+export {};

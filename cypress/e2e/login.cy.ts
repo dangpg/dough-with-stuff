@@ -30,3 +30,5 @@ describe("Login page", () => {
     cy.contains("Log in").should("be.visible");
   });
 });
+
+export {};
