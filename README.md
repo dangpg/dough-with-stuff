@@ -54,7 +54,7 @@ pnpm serve
 1. Build container
 
 ```bash
-docker build -t dangpg/dough-with-stuff
+docker build -t dangpg/dough-with-stuff .
 ```
 
 2. Run container in interactive mode
